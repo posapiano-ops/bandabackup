@@ -1,0 +1,1 @@
+# Rsnapshot root logs directory

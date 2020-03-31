@@ -1,0 +1,1 @@
+# Rsnapshot reports directory

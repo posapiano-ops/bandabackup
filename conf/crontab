@@ -1,0 +1,4 @@
+00 23 * * 1,2,3,4,5,6 /bin/sudo /usr/bin/rsnapshot -c /etc/rsnapshot.conf daily 2>&1 | /home/bck/bin/rsnapreport.pl > /home/bck/reports/daily-report_$(date +"\%d-\%m-\%Y.\%H-\%M-\%S").txt
+15 12 * * 7 /bin/sudo /usr/bin/rsnapshot -c /etc/rsnapshot.conf weekly 2>&1 | /home/bck/bin/rsnapreport.pl > /home/bck/reports/weekly-report_$(date +"\%d-\%m-\%Y.\%H-\%M-\%S").txt
+00 20 2 * * /bin/sudo /usr/bin/rsnapshot -c /etc/rsnapshot.conf monthly 2>&1 | /home/bck/bin/rsnapreport.pl > /home/bck/reports/monthly-report_$(date +"\%d-\%m-\%Y.\%H-\%M-\%S").txt
+5 3 * * 2,5 /home/bck/bin/bckgeo.sh
