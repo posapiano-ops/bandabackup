@@ -10,13 +10,13 @@ required: rsnapshot, rsync, openssl
 ```terminal
  $ sudo adduser bck
 ```
-configure `conf/rsnapshot.conf` and check syntax
-```bash
-$ rsnapshot configtest
-```
-testing
-```bash
-$ rsnapshot -t daily
+Add this in `/etc/sudoers`
+```terminal
+## Backup
+ Cmnd_Alias BACKUP = /usr/bin/rsnapshot, /usr/bin/vi /var/log/rsnapshot/rsnapshot.log, /usr/bin/rsync, /bin/ls, /bin/tee
+
+## Allow bck to run Backup commands without password
+bck    ALL=(root)       NOPASSWD: BACKUP
 ```
 2. Setting up passwordless logins via SSH for rsync using SSH keys.
 ```bash
@@ -31,15 +31,15 @@ or
 ##############################
 ## WARNING OVERWRITING FILE ##
 ##############################
-scp .ssh/id_rsa.pub root@example.com:.ssh/authorized_keys
+scp ~/.ssh/id_rsa.pub root@example.com:.ssh/authorized_keys
 ```
-3. Add this in `/etc/sudoers`
-```terminal
-## Backup
- Cmnd_Alias BACKUP = /usr/bin/rsnapshot, /usr/bin/vi /var/log/rsnapshot/rsnapshot.log, /usr/bin/rsync, /bin/ls, /bin/tee
-
-## Allow bck to run Backup commands without password
-bck    ALL=(root)       NOPASSWD: BACKUP
+3. configure `conf/rsnapshot.conf` and check syntax
+```bash
+$ rsnapshot configtest
+```
+testing
+```bash
+$ rsnapshot -t daily
 ```
 4. Configura crontab whit `conf/crontab`
 ```bash
