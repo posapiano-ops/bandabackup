@@ -14,7 +14,7 @@ PORT=3307
 ### Script Variables ###
 MYSQL="$(which mysql)"
 MYSQLDUMP="$(which mysqldump)"
-#FBKP="/root/rdb"
+FBKP="/root/rdb"
 GZIP="$(which gzip)"
 NOW="$(date +%d-%m-%Y)"
 
@@ -28,11 +28,11 @@ for db in $DBS
 do
         if [ $db != "information_schema" ] || [ $db != "performance_schema" ] ; then
                 #FILE=$FBKP/$db"_"$NOW-$(date +"%H_%M_%S").sql.gz
-                FILE=$db.sql.gz
+                FILE=$FBKP/$db.sql.gz
                 $MYSQLDUMP -u $MUSER -h $MHOST --port=$PORT --password=$MPASS $db --routines | $GZIP -9 > $FILE
         else
                 #FILE=$FBKP/$db"_"$NOW-$(date +"%H_%M_%S").sql.gz
-                FILE=$db.sql.gz
+                FILE=$FBKP/$db.sql.gz
                 $MYSQLDUMP -u $MUSER -h $MHOST --port=$PORT --password=$MPASS $db --routines --skip-lock-tables | $GZIP -9 > $FILE
         fi
 done
