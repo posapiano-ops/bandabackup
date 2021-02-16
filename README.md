@@ -1,10 +1,10 @@
-# bandabackup
+# BandaBackup
 Backup with rsnapshot.
 Setup and use rsnapshot to create incremental hourly, daily, weekly and monthly local backups, as well as remote backups.
 
 System: CentOS 7.x
 
-required: rsnapshot, rsync, openssl
+required: rsnapshot, rsync, openssl, mariadb 
 
 1. Install rsnapshot and create user `bck`
 ```terminal
