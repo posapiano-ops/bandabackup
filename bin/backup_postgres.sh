@@ -12,6 +12,7 @@ RM="$(which rm)"
 MKDIR="$(which mkdir)"
 PSQL="$(which psql)"
 PGDUMP="$(which pg_dump)"
+PGDUMPALL="$(which pg_dumpall)"
 CUT="$(which cut)"
 SED="$(which sed)"
 
@@ -27,6 +28,7 @@ for i in $databases; do
     echo $now - Dumping $i to $BACKUPDIR/$i\_$($DATE +%Y-%m-%d)
     $PGDUMP -Fc $i > $BACKUPDIR/$i\_$($DATE +%Y-%m-%d).dmp
     $PGDUMP $i > $BACKUPDIR/$i\_$($DATE +%Y-%m-%d).sql
+    $PGDUMPALL -r --file $BACKUPDIR/$i\_role\_$($DATE +%Y-%m-%d).sql
   fi
 done
 
