@@ -11,14 +11,3 @@
 ### Backup incrementali mysql
 https://medium.com/@masterix/backup-mysql-in-ambienti-linux-869cf2b23004
 
-
-
-# Checklist Finale
-✅ Backup database automatizzato giornaliero
-✅ Backup file applicazione
-✅ Backup configurazioni separate
-✅ Copia remota/cloud
-✅ Test di ripristino mensile
-✅ Monitoraggio e alerting
-✅ Documentazione procedura ripristino
-✅ Crittografia backup sensibili
