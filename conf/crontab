@@ -5,3 +5,40 @@
 
 # Mysql Backup Esegui ogni giorno alle 2:00 AM
 0 2 * * * /usr/local/bin/mysql_backup.sh >> /var/log/mysql_backup.log 2>&1
+
+# Backup completo giornaliero (2:00 AM)
+0 2 * * * /usr/local/bin/master_backup.sh >> /var/log/master_backup/cron.log 2>&1
+
+# Backup PostgreSQL incrementale (ogni 6 ore)
+0 */6 * * * /usr/local/bin/postgres_backup.sh >> /var/log/postgresql_backup/cron.log 2>&1
+
+# Backup WildFly deployments (ogni 4 ore durante orario lavorativo)
+0 8-20/4 * * * /usr/local/bin/wildfly_backup.sh >> /var/log/wildfly_backup/cron.log 2>&1
+
+# Sync cloud (una volta al giorno, dopo backup completo)
+0 4 * * * rclone sync /backup/snapshots remote:my-bucket/production/ >> /var/log/rclone.log 2>&1
+
+# Pulizia log vecchi (settimanale)
+0 3 * * 0 find /var/log/*_backup -name "*.log" -mtime +30 -delete
+
+# Verifica integrità backup (giornaliera)
+0 5 * * * /usr/local/bin/verify_backups.sh >> /var/log/verify_backups.log 2>&1
+
+# Report settimanale (domenica alle 6:00)
+0 6 * * 0 /usr/local/bin/weekly_backup_report.sh | mail -s "Weekly Backup Report" admin@example.com
+
+
+# Backup crittografato giornaliero (2:00 AM)
+0 2 * * * /usr/local/bin/postgres_encrypted_backup.sh >> /var/log/encrypted_backup.log 2>&1
+
+# Monitoraggio (ogni ora)
+0 * * * * /usr/local/bin/monitor_encrypted_backups.sh
+
+# Test settimanale ripristino (domenica 4:00 AM)
+0 4 * * 0 /usr/local/bin/test_encrypted_restore.sh
+
+# Rotazione chiavi (primo del mese)
+0 3 1 * * /usr/local/bin/rotate_backup_keys.sh
+
+# Backup chiavi mensile su storage esterno
+0 5 1 * * /usr/local/bin/backup_keys_to_external.sh
